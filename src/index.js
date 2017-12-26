@@ -5,9 +5,10 @@ const { PORT } = process.env;
 
 const models = require("./models")();
 const { logger, morgan } = require("./logger")();
-const router = require("./router")({ models, logger });
+const passport = require("./passport")({ logger, models });
+const router = require("./router")({ models, logger, passport });
 
-const app = initApp({ router, morgan });
+const app = initApp({ router, morgan, passport });
 
 const server = http.createServer(app);
 

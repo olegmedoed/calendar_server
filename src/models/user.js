@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const { isEmail, isAlphanumeric } = require("validator");
 const bcrypt = require("bcryptjs");
 const uniqueValidator = require("mongoose-unique-validator");
+const jwt = require("jsonwebtoken");
+
+const { JWT_SECRET } = process.env;
 
 module.exports = () => {
   const schema = new mongoose.Schema({
@@ -42,6 +45,11 @@ module.exports = () => {
     async setPassword(password) {
       this._password = password;
       this.phash = await bcrypt.hash(password, 8);
+    },
+
+    generateJWT() {
+      const { email, name } = this;
+      return jwt.sign({ email, name }, JWT_SECRET);
     }
   });
 
