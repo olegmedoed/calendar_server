@@ -1,6 +1,7 @@
 const passport = require("passport");
 
 const local = require("./local");
+const jwt = require("./jwt");
 
 module.exports = function Passport({ models, logger }) {
   const User = models.model("User");
@@ -14,6 +15,7 @@ module.exports = function Passport({ models, logger }) {
 
   passport.unuse("session");
   passport.use(local(User, logger));
+  passport.use(jwt(User, logger));
 
   return passport;
 };
