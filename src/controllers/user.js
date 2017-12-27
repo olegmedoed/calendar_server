@@ -48,6 +48,18 @@ module.exports = function UserController({ logger, models }) {
       } catch (err) {
         resp.status(400).json({ error: { message: err.message } });
       }
+    },
+
+    async removeEvent(req, resp) {
+      try {
+        const user = req.user;
+        const { title } = req.query;
+        if (!title) throw Error("No title");
+        await Event.remove({ user: user._id, title }).then();
+        resp.status(204).send("");
+      } catch (err) {
+        resp.status(400).json({ error: { message: err.message } });
+      }
     }
   };
 };

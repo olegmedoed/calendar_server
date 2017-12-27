@@ -23,6 +23,7 @@ module.exports = function setRoutes(opts) {
   router.use("/api/user", passport.authenticate("jwt"));
   router.post("/api/user/events", user.addEvent);
   router.get("/api/user/events", user.loadEvents);
+  router.delete("/api/user/events", user.removeEvent);
 
   router.use("/", misc.client);
 
