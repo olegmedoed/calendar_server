@@ -37,6 +37,17 @@ module.exports = function UserController({ logger, models }) {
       } catch (err) {
         resp.status(400).json({ error: { message: err.message } });
       }
+    },
+
+    async loadEvents(req, resp) {
+      try {
+        const user = req.user;
+        const events = await Event.find({ user: user._id }).exec();
+
+        resp.json({ data: events.map(ev => ev.toJSON()) });
+      } catch (err) {
+        resp.status(400).json({ error: { message: err.message } });
+      }
     }
   };
 };

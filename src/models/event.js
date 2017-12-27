@@ -21,5 +21,12 @@ module.exports = function() {
     }
   });
 
+  Object.assign(schema.methods, {
+    toJSON() {
+      const { title, start, duration } = this;
+      return { title, start, duration };
+    }
+  });
+
   mongoose.model("Event", schema);
 };
