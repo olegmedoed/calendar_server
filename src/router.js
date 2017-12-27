@@ -20,6 +20,9 @@ module.exports = function setRoutes(opts) {
     auth.authFailure
   );
 
+  router.use("/api/user", passport.authenticate("jwt"));
+  router.post("/api/user/events", user.addEvent);
+
   router.use("/", misc.client);
 
   return router;

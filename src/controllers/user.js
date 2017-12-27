@@ -1,5 +1,6 @@
 module.exports = function UserController({ logger, models }) {
   const User = models.model("User");
+  const Event = models.model("Event");
 
   return {
     async create(req, resp) {
@@ -7,7 +8,7 @@ module.exports = function UserController({ logger, models }) {
         const { email, name, password } = req.body;
         const user = new User({ email, name });
         await user.setPassword(password);
-        await user.save();
+        await user.save().then();
         logger.debug(`user ${email} created`, email);
         resp.status(201).send("");
       } catch (err) {
@@ -20,6 +21,21 @@ module.exports = function UserController({ logger, models }) {
         }
         logger.debug("create user error: ", message);
         resp.status(400).json({ error: { message } });
+      }
+    },
+
+    async addEvent(req, resp) {
+      try {
+        const { title, start, duration } = req.body;
+        const user = req.user;
+
+        const event = new Event({ title, start, duration, user: user._id });
+        await event.save().then();
+
+        logger.debug(`event ${title} created`, title);
+        resp.status(201).send("");
+      } catch (err) {
+        resp.status(400).json({ error: { message: err.message } });
       }
     }
   };

@@ -9,6 +9,7 @@ module.exports = function Mongo() {
   mongoose.connect(MONGO_URL, { useMongoClient: true });
 
   require("./user")();
+  require("./event")();
 
   return mongoose;
 };

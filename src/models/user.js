@@ -38,7 +38,8 @@ module.exports = () => {
         },
         "Password to short"
       ]
-    }
+    },
+    events: [{ type: mongoose.Schema.ObjectId, ref: "Event" }]
   });
 
   Object.assign(schema.methods, {
