@@ -1,7 +1,7 @@
 const Morgan = require("morgan");
 const Pino = require("pino");
 
-const { LOG_LEVEL, NODE_ENV } = process.env;
+const { LOG_LEVEL = "info", NODE_ENV = "development" } = process.env;
 
 module.exports = function Logger() {
   const logger = new Pino({

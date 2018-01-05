@@ -1,7 +1,7 @@
 const http = require("http");
 const initApp = require("./app");
 
-const { PORT } = process.env;
+const { PORT = 3000 } = process.env;
 
 const models = require("./models")();
 const { logger, morgan } = require("./logger")();

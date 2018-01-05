@@ -1,7 +1,7 @@
 const express = require("express");
 const p = require("path");
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV = "development" } = process.env;
 
 module.exports = function init({ router, morgan, passport }) {
   const app = express();
